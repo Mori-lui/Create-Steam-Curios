@@ -1,0 +1,17 @@
+modLoader="lowcodefml"
+loaderVersion="[4,)"
+license="GPL-3.0"
+
+[[mods]]
+modId="steamcurios_animated"
+version="0.1.0"
+displayName="Create: Steam Curios — Animated"
+authors="Mori"
+description='''Animated item icons for Create: Steam Curios (optional visual addon).'''
+
+[[dependencies.steamcurios_animated]]
+modId="steamcurios"
+type="required"
+versionRange="[0.1.0,)"
+ordering="AFTER"
+side="CLIENT"

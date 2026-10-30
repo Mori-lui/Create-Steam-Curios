@@ -67,3 +67,24 @@ steam CLOUD particles while burning; fuel shown as item durability-style bar (ge
 
 ## Log
 - (entries appended as work happens)
+
+## Log
+- 2026-10-31: build.gradle: localRuntime (NeoGradle-ism) -> runtimeOnly; DeferredRegister.createItems for
+  registerSimpleItem; TAB is DeferredHolder; SoundEvents.FLINTANDSTEEL_USE; @EventBusSubscriber without
+  deprecated bus attr. First clean build OK, jar contents verified (mods.toml expanded).
+- runClient (dev): "[steamcurios] loaded; curios: true, cold_sweat: true, create: true" — soft deps OK,
+  window renders, no errors from the mod. Killed client (PID kill) before gametests.
+- GameTests: MDG run type is `type = "gameTestServer"` (no gameTestServer() factory); @GameTest is the
+  VANILLA annotation (net.minecraft.gametest.framework.GameTest), only GameTestHolder/PrefixGameTestTemplate
+  are neoforge.gametest; template must be "empty3x3" (namespace auto-prefixed -> double-ns crash otherwise);
+  Registry has no get(TagKey) in 1.21.1 -> getTag; TempModifier.calculate is protected -> public applyTo hook.
+  Empty structure template generated with tools/gen_structure.py (gzip NBT, DataVersion 3955).
+- **Create 6.0.10 gotcha: `create:spouting` is NOT a recipe serializer (JEI-only category)** — SA recipe
+  with a spouting step fails to parse ("Unknown registry key in ... recipe_serializer"). Replaced the
+  water step with `create:deploying` + minecraft:water_bucket (deployer holds the bucket).
+- GameTest round 2: ALL 6 TESTS PASS (items, necklace tag, 5 recipes no errors, fuel/tiers, damage tags,
+  CS lift modifier add/remove + liftForFraction math). Mock players have no Curios capability -> worn-path
+  lift can't be tested headless; verified in real game next.
+- Deployed create-steam-curios-0.1.0.jar + curios-neoforge-9.5.1+1.21.1.jar into the pack mods/.
+- Addon steamcurios_animated: resources-only jar (lowcodefml), animated item icons (mcmeta strips),
+  depends on steamcurios. Visual override order = mod load order (addon loads after steamcurios).
