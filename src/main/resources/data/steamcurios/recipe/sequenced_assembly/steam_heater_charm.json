@@ -1,0 +1,47 @@
+{
+  "type": "create:sequenced_assembly",
+  "ingredient": {
+    "item": "steamcurios:brass_medallion"
+  },
+  "loops": 1,
+  "results": [
+    {
+      "id": "steamcurios:steam_heater_charm"
+    }
+  ],
+  "sequence": [
+    {
+      "type": "create:deploying",
+      "ingredients": [
+        { "item": "steamcurios:incomplete_heater_charm" },
+        { "item": "create:precision_mechanism" }
+      ],
+      "results": [
+        { "id": "steamcurios:incomplete_heater_charm" }
+      ]
+    },
+    {
+      "type": "create:deploying",
+      "ingredients": [
+        { "item": "steamcurios:incomplete_heater_charm" },
+        { "tag": "cold_sweat:fur" }
+      ],
+      "results": [
+        { "id": "steamcurios:incomplete_heater_charm" }
+      ]
+    },
+    {
+      "type": "create:deploying",
+      "ingredients": [
+        { "item": "steamcurios:incomplete_heater_charm" },
+        { "item": "minecraft:water_bucket" }
+      ],
+      "results": [
+        { "id": "steamcurios:incomplete_heater_charm" }
+      ]
+    }
+  ],
+  "transitional_item": {
+    "id": "steamcurios:incomplete_heater_charm"
+  }
+}

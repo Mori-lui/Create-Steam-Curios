@@ -1,0 +1,21 @@
+{
+  "type": "create:mechanical_crafting",
+  "accept_mirrored": false,
+  "category": "misc",
+  "pattern": [
+    "MSM",
+    "LCL",
+    "SHS"
+  ],
+  "key": {
+    "M": { "item": "create:precision_mechanism" },
+    "S": { "item": "create:brass_sheet" },
+    "L": { "item": "create:electron_tube" },
+    "C": { "item": "steamcurios:thermostat_core" },
+    "H": { "item": "steamcurios:steam_heater_charm" }
+  },
+  "result": {
+    "id": "steamcurios:auto_thermostat",
+    "count": 1
+  }
+}

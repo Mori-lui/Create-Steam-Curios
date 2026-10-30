@@ -1,0 +1,18 @@
+{
+  "type": "minecraft:crafting_shaped",
+  "category": "misc",
+  "pattern": [
+    "BUB",
+    "UMU",
+    "BUB"
+  ],
+  "key": {
+    "B": { "item": "create:brass_ingot" },
+    "U": { "item": "create:electron_tube" },
+    "M": { "item": "create:precision_mechanism" }
+  },
+  "result": {
+    "id": "steamcurios:thermostat_core",
+    "count": 1
+  }
+}

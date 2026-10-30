@@ -1,0 +1,18 @@
+{
+  "type": "minecraft:crafting_shaped",
+  "category": "misc",
+  "pattern": [
+    "ISI",
+    "SGS",
+    "ISI"
+  ],
+  "key": {
+    "I": { "item": "create:brass_ingot" },
+    "S": { "item": "create:brass_sheet" },
+    "G": { "item": "minecraft:glass_pane" }
+  },
+  "result": {
+    "id": "steamcurios:brass_medallion",
+    "count": 1
+  }
+}

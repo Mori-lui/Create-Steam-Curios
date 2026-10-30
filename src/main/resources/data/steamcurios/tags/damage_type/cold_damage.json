@@ -1,0 +1,14 @@
+{
+  "replace": false,
+  "values": [
+    "minecraft:freeze",
+    {
+      "id": "cold_sweat:cold",
+      "required": false
+    },
+    {
+      "id": "cold_sweat:cold_scaling",
+      "required": false
+    }
+  ]
+}

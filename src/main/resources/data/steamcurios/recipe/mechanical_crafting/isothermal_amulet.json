@@ -1,0 +1,24 @@
+{
+  "type": "create:mechanical_crafting",
+  "accept_mirrored": false,
+  "category": "misc",
+  "pattern": [
+    "BMBMB",
+    "MLNLM",
+    "BCACB",
+    "MLCLM",
+    "BMBMB"
+  ],
+  "key": {
+    "B": { "item": "create:brass_sheet" },
+    "M": { "item": "create:precision_mechanism" },
+    "L": { "item": "create:electron_tube" },
+    "N": { "item": "minecraft:nether_star" },
+    "C": { "item": "cold_sweat:chameleon_molt" },
+    "A": { "item": "steamcurios:auto_thermostat" }
+  },
+  "result": {
+    "id": "steamcurios:isothermal_amulet",
+    "count": 1
+  }
+}

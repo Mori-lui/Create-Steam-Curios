@@ -1,0 +1,29 @@
+{
+  "parent": "minecraft:story/root",
+  "display": {
+    "icon": {
+      "id": "steamcurios:auto_thermostat"
+    },
+    "title": {
+      "translate": "advancement.steamcurios.thermostat"
+    },
+    "description": {
+      "translate": "advancement.steamcurios.thermostat.desc"
+    },
+    "frame": "goal",
+    "announce_to_chat": true,
+    "show_toast": true
+  },
+  "criteria": {
+    "have_thermostat": {
+      "trigger": "minecraft:inventory_changed",
+      "conditions": {
+        "items": [
+          {
+            "items": "steamcurios:auto_thermostat"
+          }
+        ]
+      }
+    }
+  }
+}

@@ -1,0 +1,17 @@
+{
+  "itemGroup.steamcurios": "Create: Steam Curios",
+  "item.steamcurios.brass_medallion": "Латунный медальон",
+  "item.steamcurios.thermostat_core": "Термостатический сердечник",
+  "item.steamcurios.incomplete_heater_charm": "Незаконченная паровая брошка",
+  "item.steamcurios.steam_heater_charm": "Паровая брошка обогрева",
+  "item.steamcurios.auto_thermostat": "Автотермостат",
+  "item.steamcurios.isothermal_amulet": "Изотермический амулет",
+  "tooltip.steamcurios.tier.mechanical": "Механический: защищает, только пока в котле есть топливо",
+  "tooltip.steamcurios.tier.automatic": "Автоматический: пассивно половина защиты, полная — на топливе",
+  "tooltip.steamcurios.tier.isothermal": "Изотермический: полная защита, топливо не нужно",
+  "tooltip.steamcurios.steam": "Запас пара: %s%%",
+  "tooltip.steamcurios.refuel_hint": "Возьмите печное топливо в левую руку и примените предмет",
+  "message.steamcurios.refuelled": "Котёл растоплен: +%s с",
+  "advancement.steamcurios.thermostat": "Термостат",
+  "advancement.steamcurios.thermostat.desc": "Скрафтите автотермостат"
+}

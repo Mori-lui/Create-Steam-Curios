@@ -1,0 +1,69 @@
+plugins {
+    id "java-library"
+    id "net.neoforged.moddev" version "${moddevgradle_version}"
+}
+
+version = mod_version
+group = mod_group_id
+
+repositories {
+    mavenCentral()
+}
+
+java {
+    toolchain {
+        languageVersion = JavaLanguageVersion.of(21)
+    }
+}
+
+neoForge {
+    version = neo_version
+
+    runs {
+        client {
+            client()
+            systemProperty "forge.logging.console.level", "debug"
+        }
+        server {
+            server()
+            programArgument "--nogui"
+            systemProperty "forge.logging.console.level", "debug"
+            systemProperty "neoforge.enabledGameTestNamespaces", mod_id
+        }
+        gameTestServer {
+            type = "gameTestServer"
+            systemProperty "neoforge.enabledGameTestNamespaces", mod_id
+        }
+    }
+
+    mods {
+        "${mod_id}" {
+            sourceSet sourceSets.main
+        }
+    }
+}
+
+def packModsDir = "C:/Users/mori.DESKTOP-M97RSVL/AppData/Roaming/ModrinthApp/profiles/xyz/mods"
+
+dependencies {
+    // soft deps: compile against them, run with them (the real pack jars)
+    compileOnly files("libs/curios-neoforge-9.5.1+1.21.1.jar")
+    compileOnly files("${packModsDir}/ColdSweat-2.4.4.jar")
+    runtimeOnly files("libs/curios-neoforge-9.5.1+1.21.1.jar")
+    runtimeOnly files("${packModsDir}/ColdSweat-2.4.4.jar")
+    runtimeOnly files("${packModsDir}/create-1.21.1-6.0.10.jar")
+}
+
+tasks.withType(JavaCompile).configureEach {
+    options.encoding = "UTF-8"
+}
+
+processResources {
+    var props = [mod_id: mod_id, mod_name: mod_name, mod_version: mod_version,
+                 mod_authors: mod_authors, mod_description: mod_description,
+                 mod_license: mod_license]
+    inputs.properties(props)
+    filesMatching("META-INF/neoforge.mods.toml") {
+        expand(props)
+    }
+}
