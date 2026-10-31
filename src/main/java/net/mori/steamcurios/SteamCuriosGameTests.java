@@ -102,6 +102,19 @@ public final class SteamCuriosGameTests {
     }
 
     @GameTest(template = EMPTY, timeoutTicks = 100)
+    public static void playerHasNecklaceSlot(GameTestHelper helper) {
+        if (!SteamCuriosMod.CURIOS_LOADED) {
+            helper.succeed();
+            return;
+        }
+        var slots = top.theillusivec4.curios.api.CuriosApi.getEntitySlots(
+                net.minecraft.world.entity.EntityType.PLAYER, helper.getLevel());
+        helper.assertTrue(slots != null && slots.containsKey("necklace"),
+                "player has necklace slot, has: " + (slots == null ? "null" : slots.keySet()));
+        helper.succeed();
+    }
+
+    @GameTest(template = EMPTY, timeoutTicks = 100)
     public static void coldSweatLiftModifier(GameTestHelper helper) {
         if (!SteamCuriosMod.COLD_SWEAT_LOADED) {
             helper.succeed();

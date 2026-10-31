@@ -88,3 +88,14 @@ steam CLOUD particles while burning; fuel shown as item durability-style bar (ge
 - Deployed create-steam-curios-0.1.0.jar + curios-neoforge-9.5.1+1.21.1.jar into the pack mods/.
 - Addon steamcurios_animated: resources-only jar (lowcodefml), animated item icons (mcmeta strips),
   depends on steamcurios. Visual override order = mod load order (addon loads after steamcurios).
+- **Real-game bug found (user report): items could not be equipped anywhere.** Root cause: in Curios 9.5.1
+  the player has NO necklace slot at all — the widget showed only Head and Charm (Curios' internal
+  defaults). Slot TYPES (data/curios/curios/slots/*.json) and the item->slot TAG are not enough: which
+  entities get which slots is entities data `data/<ns>/curios/entities/<name>.json`
+  ({"entities":["player"],"slots":["necklace"]}); Curios ships none and merges files unless "replace":true.
+  CuriosEntityManager source confirmed (SimpleJsonResourceReloadListener "curios/entities", config slots
+  only as player fallback). Fix: data/steamcurios/curios/entities/player.json granting necklace +
+  GameTest playerHasNecklaceSlot. Head/Charm in dev come from Curios' own defaults (not configs:
+  curios-common.toml slots=[] and server toml has no slots list).
+- UI note: in the curios widget the small circle is "Toggle Visibility" (cosmetic render toggle); the
+  BUTTON itself is the slot (drag onto it); shift-click also targets first valid slot.
