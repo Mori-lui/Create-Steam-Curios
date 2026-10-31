@@ -134,3 +134,6 @@ steam CLOUD particles while burning; fuel shown as item durability-style bar (ge
   at chest; poseStack space empirically: y=-1.12 -> ~2.1 m above feet (overhead), y=-0.17 -> chest+0.95 bias;
   final translate(0, -0.13, 0.14) scale 0.13. Front-camera view used for verification (F5 twice); giant look
   in shots is camera proximity, real size ~0.13 m. Deployed.
+- Body chain added: flat quad (entityCutoutNoCull, textures/entity/chain.png 32x32 V of links) across the
+  chest behind the pendant; pendant = item model at translate(0,-0.10,0.16) scale 0.11. Verified live:
+  V top at the neck, bottom meets the pendant (giant look in front-view shots = camera proximity).
