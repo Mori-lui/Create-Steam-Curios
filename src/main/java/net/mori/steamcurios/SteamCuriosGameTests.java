@@ -115,6 +115,22 @@ public final class SteamCuriosGameTests {
     }
 
     @GameTest(template = EMPTY, timeoutTicks = 100)
+    public static void furTagContainsGoatFur(GameTestHelper helper) {
+        TagKey<Item> furTag = TagKey.create(Registries.ITEM,
+                ResourceLocation.fromNamespaceAndPath(SteamCuriosMod.MOD_ID, "fur"));
+        Set<Item> tagged = BuiltInRegistries.ITEM.getTag(furTag)
+                .map(holders -> holders.stream().map(Holder::value).collect(Collectors.toSet()))
+                .orElse(Set.of());
+        helper.assertFalse(tagged.isEmpty(), "steamcurios:fur tag is not empty");
+        if (SteamCuriosMod.COLD_SWEAT_LOADED) {
+            Item goatFur = BuiltInRegistries.ITEM.get(
+                    ResourceLocation.fromNamespaceAndPath("cold_sweat", "goat_fur"));
+            helper.assertTrue(tagged.contains(goatFur), "goat_fur in steamcurios:fur tag");
+        }
+        helper.succeed();
+    }
+
+    @GameTest(template = EMPTY, timeoutTicks = 100)
     public static void coldSweatLiftModifier(GameTestHelper helper) {
         if (!SteamCuriosMod.COLD_SWEAT_LOADED) {
             helper.succeed();

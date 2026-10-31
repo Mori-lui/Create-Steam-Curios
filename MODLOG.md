@@ -109,3 +109,7 @@ steam CLOUD particles while burning; fuel shown as item durability-style bar (ge
   item-on-item steps of SA require deployers. Minimal brooch rig: depot + 3 deployers facing it (held:
   precision mechanism / #cold_sweat:fur / water bucket) + rotation; deployers may fire in any order
   (wrong step is a no-op); result lands back on the depot.
+- **User correction confirmed: `cold_sweat:fur` tag does NOT exist in CS 2.4.4** (the old tag came from the
+  1.20.1 reference mod, which shipped it itself). Goat fur item = cold_sweat:goat_fur. Fix: own tag
+  data/steamcurios/tags/item/fur.json (goat_fur, optional entry) + SA recipe now uses steamcurios:fur;
+  gametest furTagContainsGoatFur. 8/8 tests, real gradle build, jar verified, redeployed.

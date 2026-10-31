@@ -1,0 +1,9 @@
+{
+  "replace": false,
+  "values": [
+    {
+      "id": "cold_sweat:goat_fur",
+      "required": false
+    }
+  ]
+}

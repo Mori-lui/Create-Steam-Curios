@@ -24,7 +24,7 @@
       "type": "create:deploying",
       "ingredients": [
         { "item": "steamcurios:incomplete_heater_charm" },
-        { "tag": "cold_sweat:fur" }
+        { "tag": "steamcurios:fur" }
       ],
       "results": [
         { "id": "steamcurios:incomplete_heater_charm" }
