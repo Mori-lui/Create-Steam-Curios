@@ -10,8 +10,11 @@
   "tooltip.steamcurios.tier.automatic": "Automatic: half protection passively, full while fuelled",
   "tooltip.steamcurios.tier.isothermal": "Isothermal: full protection, needs no fuel",
   "tooltip.steamcurios.steam": "Steam charge: %s%%",
-  "tooltip.steamcurios.refuel_hint": "Hold furnace fuel in the offhand and use to refuel",
+  "tooltip.steamcurios.refuel_hint": "Refuel: fuel or water in the offhand + use (fuel value = its furnace burn time)",
   "message.steamcurios.refuelled": "Boiler stoked: +%s s",
   "advancement.steamcurios.thermostat": "Thermostat",
-  "advancement.steamcurios.thermostat.desc": "Craft an Auto-Thermostat"
+  "advancement.steamcurios.thermostat.desc": "Craft an Auto-Thermostat",
+  "tooltip.steamcurios.water": "Water: %s/%s u",
+  "message.steamcurios.water_refilled": "Water tank: +%s u",
+  "subtitles.steamcurios.chuff": "Amulet chuffs"
 }

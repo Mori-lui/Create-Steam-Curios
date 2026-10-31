@@ -113,3 +113,20 @@ steam CLOUD particles while burning; fuel shown as item durability-style bar (ge
   1.20.1 reference mod, which shipped it itself). Goat fur item = cold_sweat:goat_fur. Fix: own tag
   data/steamcurios/tags/item/fur.json (goat_fur, optional entry) + SA recipe now uses steamcurios:fur;
   gametest furTagContainsGoatFur. 8/8 tests, real gradle build, jar verified, redeployed.
+
+## Rework v0.2.0 (user feedback round 3)
+- **Adaptive heat (fixes overheating in mild weather):** lift is no longer constant — the TempModifier
+  warms only UP TO comfortCelsius (default +15 C), capped by maxLiftCelsius; at/above comfort the amulet
+  does nothing. SteamLogic.liftForFractionAt(fraction, tempMc) is the pure core (gametested).
+- **Water mechanic:** water_units component; bottle +3 / bucket +12 (empty container returned), capacity 12;
+  one unit evaporates per waterUnitTicks (320) of steaming; no water + fuel = DRY state, no protection.
+  Refuel order: water bottle/bucket first, then furnace fuel (fuel value = burn time: plank 15 s, coal 80 s).
+- **States -> textures:** STATE component 0 idle / 1 steaming / 2 dry is mirrored into
+  CustomModelData(int) on the stack; item models have custom_model_data overrides (placeholder 16px
+  steam/dry variants; real art pending style choice).
+- **Locomotive chuff:** synthesized chuff1/chuff2.ogg (numpy+soundfile: noise burst + boiler thump),
+  plays rarely while steaming (config interval 4-9 s), subtitles added.
+- **Body render fixed:** CuriosLayer passes raw entity-space poseStack (origin feet, y NEGATIVE = up,
+  front = +Z — verified against Create's GogglesCurioRenderer constants and CuriosLayer source); old
+  translate(+0.55, ...) drew the medallion underground. Now translate(0, -1.08, 0.14) scale 0.6.
+- 9/9 GameTests. Note: one gradle chain hung ~25 min once (machine probably slept); killed by PID, rerun fine.

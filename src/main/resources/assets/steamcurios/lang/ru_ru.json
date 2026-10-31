@@ -10,8 +10,11 @@
   "tooltip.steamcurios.tier.automatic": "Автоматический: пассивно половина защиты, полная — на топливе",
   "tooltip.steamcurios.tier.isothermal": "Изотермический: полная защита, топливо не нужно",
   "tooltip.steamcurios.steam": "Запас пара: %s%%",
-  "tooltip.steamcurios.refuel_hint": "Возьмите печное топливо в левую руку и примените предмет",
+  "tooltip.steamcurios.refuel_hint": "Заправка: топливо или вода в левую руку + применение (ценность топлива = время горения в печке)",
   "message.steamcurios.refuelled": "Котёл растоплен: +%s с",
   "advancement.steamcurios.thermostat": "Термостат",
-  "advancement.steamcurios.thermostat.desc": "Скрафтите автотермостат"
+  "advancement.steamcurios.thermostat.desc": "Скрафтите автотермостат",
+  "tooltip.steamcurios.water": "Вода: %s/%s ед.",
+  "message.steamcurios.water_refilled": "Бак с водой: +%s ед.",
+  "subtitles.steamcurios.chuff": "Амулет пыхтит"
 }

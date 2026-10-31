@@ -1,0 +1,14 @@
+{
+  "chuff": {
+    "category": "players",
+    "sounds": [
+      {
+        "name": "steamcurios:chuff1"
+      },
+      {
+        "name": "steamcurios:chuff2"
+      }
+    ],
+    "subtitle": "subtitles.steamcurios.chuff"
+  }
+}

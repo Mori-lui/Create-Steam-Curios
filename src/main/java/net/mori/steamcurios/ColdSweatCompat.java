@@ -32,7 +32,11 @@ public final class ColdSweatCompat {
     }
 
     public static boolean isColdStressed(LivingEntity entity) {
-        return Temperature.get(entity, Temperature.Trait.WORLD) < SteamCuriosConfig.thresholdMc();
+        return worldTemp(entity) < SteamCuriosConfig.thresholdMc();
+    }
+
+    public static double worldTemp(LivingEntity entity) {
+        return Temperature.get(entity, Temperature.Trait.WORLD);
     }
 
     public static void applyIceResistance(LivingEntity entity) {

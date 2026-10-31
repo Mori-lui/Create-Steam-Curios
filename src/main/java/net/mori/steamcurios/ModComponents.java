@@ -22,6 +22,22 @@ public final class ModComponents {
                             .networkSynchronized(ByteBufCodecs.VAR_INT)
                             .build());
 
+    /** Remaining water in abstract units. Absent = empty. */
+    public static final Supplier<DataComponentType<Integer>> WATER_UNITS =
+            DATA_COMPONENTS.register("water_units",
+                    () -> DataComponentType.<Integer>builder()
+                            .persistent(Codec.intRange(0, 64))
+                            .networkSynchronized(ByteBufCodecs.VAR_INT)
+                            .build());
+
+    /** Display state: 0 idle, 1 steaming, 2 dry (fuel but no water). Drives item model overrides. */
+    public static final Supplier<DataComponentType<Integer>> STATE =
+            DATA_COMPONENTS.register("state",
+                    () -> DataComponentType.<Integer>builder()
+                            .persistent(Codec.intRange(0, 2))
+                            .networkSynchronized(ByteBufCodecs.VAR_INT)
+                            .build());
+
     private ModComponents() {
     }
 }

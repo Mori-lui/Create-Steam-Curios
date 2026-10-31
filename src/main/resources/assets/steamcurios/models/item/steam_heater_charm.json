@@ -2,5 +2,15 @@
   "parent": "minecraft:item/generated",
   "textures": {
     "layer0": "steamcurios:item/steam_heater_charm"
-  }
+  },
+  "overrides": [
+    {
+      "predicate": { "custom_model_data": 1 },
+      "model": "steamcurios:item/steam_heater_charm_steam"
+    },
+    {
+      "predicate": { "custom_model_data": 2 },
+      "model": "steamcurios:item/steam_heater_charm_dry"
+    }
+  ]
 }

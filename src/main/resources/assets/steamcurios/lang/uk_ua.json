@@ -10,8 +10,11 @@
   "tooltip.steamcurios.tier.automatic": "Автоматичний: пасивно половина захисту, повний — на паливі",
   "tooltip.steamcurios.tier.isothermal": "Ізотермічний: повний захист, паливо не потрібне",
   "tooltip.steamcurios.steam": "Запас пари: %s%%",
-  "tooltip.steamcurios.refuel_hint": "Візьміть пічне паливо в ліву руку та застосуйте предмет",
+  "tooltip.steamcurios.refuel_hint": "Заправка: паливо або вода в ліву руку + застосування (цінність палива = час горіння в печі)",
   "message.steamcurios.refuelled": "Котол розтоплено: +%s с",
   "advancement.steamcurios.thermostat": "Термостат",
-  "advancement.steamcurios.thermostat.desc": "Скрафтіть автотермостат"
+  "advancement.steamcurios.thermostat.desc": "Скрафтіть автотермостат",
+  "tooltip.steamcurios.water": "Вода: %s/%s од.",
+  "message.steamcurios.water_refilled": "Бак з водою: +%s од.",
+  "subtitles.steamcurios.chuff": "Амулет пихтить"
 }

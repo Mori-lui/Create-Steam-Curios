@@ -43,9 +43,9 @@ public class AmuletRenderer implements ICurioRenderer {
         ICurioRenderer.rotateIfSneaking(poseStack, entity);
 
         poseStack.pushPose();
-        poseStack.translate(0.0D, 0.55D, 0.17D);
-        poseStack.mulPose(Axis.XP.rotationDegrees(180.0F));
-        poseStack.scale(0.75F, 0.75F, 0.75F);
+        // entity space: y negative = up, front = +Z (verified against Create's GogglesCurioRenderer)
+        poseStack.translate(0.0D, -1.08D, 0.14D);
+        poseStack.scale(0.6F, 0.6F, 0.6F);
         VertexConsumer consumer = buffer.getBuffer(RenderType.entityCutoutNoCull(TEXTURE));
         this.model.renderToBuffer(poseStack, consumer, light, OverlayTexture.NO_OVERLAY, -1);
         poseStack.popPose();

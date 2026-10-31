@@ -7,9 +7,9 @@ import net.minecraft.world.entity.LivingEntity;
 import java.util.function.Function;
 
 /**
- * Warms Cold Sweat's WORLD temperature by the live amulet lift while any amulet
- * protects the player. The lift is read on every calculate() so fuel state and
- * tier changes apply without re-adding the modifier.
+ * Warms Cold Sweat's WORLD temperature adaptively: only up to the comfort point,
+ * never above it, so the amulet cannot overheat the player in mild weather.
+ * The lift is read on every calculate() so fuel/water state applies live.
  */
 public class SteamWarmthModifier extends TempModifier {
 
@@ -18,11 +18,8 @@ public class SteamWarmthModifier extends TempModifier {
 
     @Override
     protected Function<Double, Double> calculate(LivingEntity entity, Temperature.Trait trait) {
-        double lift = SteamLogic.currentLiftMc(entity);
-        if (Math.abs(lift) < 1.0E-4D) {
-            return temp -> temp;
-        }
-        return temp -> temp + lift;
+        return temp -> temp + SteamLogic.liftForFractionAt(
+                SteamLogic.bestFraction((net.minecraft.world.entity.player.Player) entity), temp);
     }
 
     /** Public test hook: applies this modifier's function to a base temperature. */

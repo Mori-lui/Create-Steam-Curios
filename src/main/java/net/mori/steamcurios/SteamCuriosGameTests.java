@@ -69,7 +69,9 @@ public final class SteamCuriosGameTests {
         ItemStack mechanical = new ItemStack(ModItems.STEAM_HEATER_CHARM.get());
         helper.assertTrue(SteamLogic.stackFraction(mechanical) == 0.0D, "mechanical empty protects nothing");
         SteamLogic.setFuel(mechanical, 100);
-        helper.assertTrue(SteamLogic.getFuel(mechanical) == 100, "fuel stored");
+        SteamLogic.setWater(mechanical, 2);
+        helper.assertTrue(SteamLogic.getFuel(mechanical) == 100 && SteamLogic.getWater(mechanical) == 2,
+                "fuel and water stored");
         helper.assertTrue(SteamLogic.stackFraction(mechanical) == 1.0D, "mechanical fuelled protects fully");
 
         ItemStack automatic = new ItemStack(ModItems.AUTO_THERMOSTAT.get());
@@ -77,6 +79,28 @@ public final class SteamCuriosGameTests {
 
         ItemStack isothermal = new ItemStack(ModItems.ISOTHERMAL_AMULET.get());
         helper.assertTrue(SteamLogic.stackFraction(isothermal) == 1.0D, "isothermal always full");
+        helper.succeed();
+    }
+
+    @GameTest(template = EMPTY, timeoutTicks = 100)
+    public static void adaptiveLiftNeverOverheats(GameTestHelper helper) {
+        double comfort = SteamCuriosConfig.comfortMc();
+        double maxLift = SteamCuriosConfig.maxLiftMc();
+
+        double cold = SteamLogic.liftForFractionAt(1.0D, 0.0D);
+        helper.assertTrue(Math.abs(cold - Math.min(comfort, maxLift)) < 1.0E-4D,
+                "full lift at 0 MC warms to comfort, got " + cold);
+
+        double near = SteamLogic.liftForFractionAt(1.0D, comfort - 0.2D);
+        helper.assertTrue(Math.abs(near - 0.2D) < 1.0E-4D, "near comfort lifts just the gap, got " + near);
+
+        helper.assertTrue(SteamLogic.liftForFractionAt(1.0D, comfort) == 0.0D,
+                "at comfort the amulet does nothing (no overheating)");
+        helper.assertTrue(SteamLogic.liftForFractionAt(1.0D, comfort + 1.0D) == 0.0D,
+                "above comfort the amulet does nothing");
+        helper.assertTrue(Math.abs(SteamLogic.liftForFractionAt(0.5D, 0.0D) - Math.min(comfort, maxLift) / 2.0D)
+                        < 1.0E-4D, "half fraction lifts half way");
+        helper.assertTrue(SteamLogic.liftForFractionAt(0.0D, 0.0D) == 0.0D, "no amulet, no lift");
         helper.succeed();
     }
 
@@ -138,12 +162,6 @@ public final class SteamCuriosGameTests {
         }
         var player = helper.makeMockPlayer(GameType.SURVIVAL);
 
-        double full = SteamLogic.liftForFraction(1.0D);
-        double half = SteamLogic.liftForFraction(0.5D);
-        double expected = SteamCuriosConfig.liftMc();
-        helper.assertTrue(Math.abs(full - expected) < 1.0E-4D, "full lift is liftMc, got " + full);
-        helper.assertTrue(Math.abs(half - expected / 2.0D) < 1.0E-4D, "half lift is liftMc/2, got " + half);
-
         ColdSweatCompat.syncModifier(player, 1.0D);
         List<TempModifier> world = Temperature.getModifiers(player, Temperature.Trait.WORLD);
         helper.assertTrue(world.stream().anyMatch(m -> m instanceof SteamWarmthModifier), "steam_warmth added");
@@ -153,7 +171,6 @@ public final class SteamCuriosGameTests {
         double bare = ((SteamWarmthModifier) modifier).applyTo(0.0D, player);
         helper.assertTrue(Math.abs(bare) < 1.0E-4D,
                 "no amulet carried -> no lift, got " + bare);
-
         ColdSweatCompat.syncModifier(player, 0.0D);
         helper.assertTrue(Temperature.getModifiers(player, Temperature.Trait.WORLD).stream()
                         .noneMatch(m -> m instanceof SteamWarmthModifier),
