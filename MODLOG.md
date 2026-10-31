@@ -99,3 +99,13 @@ steam CLOUD particles while burning; fuel shown as item durability-style bar (ge
   curios-common.toml slots=[] and server toml has no slots list).
 - UI note: in the curios widget the small circle is "Toggle Visibility" (cosmetic render toggle); the
   BUTTON itself is the slot (drag onto it); shift-click also targets first valid slot.
+- **Pack bug (user report round 2): necklace still missing + SA recipe invisible in JEI in the pack, dev OK.**
+  Root cause: the pack jar was the ORIGINAL first build — `gradle runGameTestServer`/`runClient` do NOT
+  rebuild the jar; both earlier `cp`s copied the stale build/libs jar (spouting recipe -> SA parse error ->
+  JEI shows nothing; no player.json -> no necklace). Dev worked because runs execute build/classes+resources.
+  Lesson: deploy only after a real `gradle build`; verify jar contents (entities file present, no 'spouting').
+  Fixed: rebuilt 12:12, verified, redeployed. User must restart the pack.
+- Create fact: manual "Item Application" (RightClickBlock hook) works only on BLOCKS (brass casing etc.);
+  item-on-item steps of SA require deployers. Minimal brooch rig: depot + 3 deployers facing it (held:
+  precision mechanism / #cold_sweat:fur / water bucket) + rotation; deployers may fire in any order
+  (wrong step is a no-op); result lands back on the depot.
