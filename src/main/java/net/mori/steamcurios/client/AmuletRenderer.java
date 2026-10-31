@@ -1,36 +1,27 @@
 package net.mori.steamcurios.client;
 
 import com.mojang.blaze3d.vertex.PoseStack;
-import com.mojang.blaze3d.vertex.VertexConsumer;
-import com.mojang.math.Axis;
 import net.minecraft.client.Minecraft;
 import net.minecraft.client.model.EntityModel;
 import net.minecraft.client.renderer.MultiBufferSource;
-import net.minecraft.client.renderer.RenderType;
+import net.minecraft.client.renderer.entity.ItemRenderer;
 import net.minecraft.client.renderer.entity.RenderLayerParent;
-import net.minecraft.client.renderer.texture.OverlayTexture;
-import net.minecraft.resources.ResourceLocation;
+import net.minecraft.client.resources.model.BakedModel;
 import net.minecraft.world.entity.LivingEntity;
+import net.minecraft.world.item.ItemDisplayContext;
 import net.minecraft.world.item.ItemStack;
+import net.minecraft.world.level.Level;
 import net.mori.steamcurios.SteamCuriosMod;
 import top.theillusivec4.curios.api.SlotContext;
 import top.theillusivec4.curios.api.client.ICurioRenderer;
 
 /**
- * Renders the amulet as a small brass medallion on the chest. Transforms are
- * tuned visually against the running game.
+ * Renders the amulet as its own item model (the icon) on the chest — the same
+ * approach as Create's GogglesCurioRenderer. Rendering the item model (instead
+ * of a separate mesh) also keeps the on-body look in sync with the fuel/water
+ * state overrides of the item model.
  */
 public class AmuletRenderer implements ICurioRenderer {
-
-    private static final ResourceLocation TEXTURE = ResourceLocation.fromNamespaceAndPath(
-            SteamCuriosMod.MOD_ID, "textures/entity/amulet.png");
-
-    private final AmuletModel model;
-
-    public AmuletRenderer() {
-        this.model = new AmuletModel(
-                Minecraft.getInstance().getEntityModels().bakeLayer(AmuletModel.LAYER));
-    }
 
     @Override
     public <T extends LivingEntity, M extends EntityModel<T>> void render(
@@ -43,11 +34,15 @@ public class AmuletRenderer implements ICurioRenderer {
         ICurioRenderer.rotateIfSneaking(poseStack, entity);
 
         poseStack.pushPose();
-        // entity space: y negative = up, front = +Z (verified against Create's GogglesCurioRenderer)
-        poseStack.translate(0.0D, -1.08D, 0.14D);
-        poseStack.scale(0.6F, 0.6F, 0.6F);
-        VertexConsumer consumer = buffer.getBuffer(RenderType.entityCutoutNoCull(TEXTURE));
-        this.model.renderToBuffer(poseStack, consumer, light, OverlayTexture.NO_OVERLAY, -1);
+        // entity space: y negative = up, front = +Z (Create's GogglesCurioRenderer convention)
+        poseStack.translate(0.0D, -0.13D, 0.14D);
+        poseStack.scale(0.13F, 0.13F, 0.13F);
+        poseStack.mulPose(com.mojang.math.Axis.XP.rotationDegrees(180.0F));
+        Level level = entity.level();
+        ItemRenderer itemRenderer = Minecraft.getInstance().getItemRenderer();
+        BakedModel model = itemRenderer.getModel(stack, level, entity, 0);
+        itemRenderer.render(stack, ItemDisplayContext.NONE, false, poseStack, buffer, light,
+                net.minecraft.client.renderer.texture.OverlayTexture.NO_OVERLAY, model);
         poseStack.popPose();
     }
 }

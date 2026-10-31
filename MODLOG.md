@@ -130,3 +130,7 @@ steam CLOUD particles while burning; fuel shown as item durability-style bar (ge
   front = +Z — verified against Create's GogglesCurioRenderer constants and CuriosLayer source); old
   translate(+0.55, ...) drew the medallion underground. Now translate(0, -1.08, 0.14) scale 0.6.
 - 9/9 GameTests. Note: one gradle chain hung ~25 min once (machine probably slept); killed by PID, rerun fine.
+- Body render verified live: item-model render (ICurioRenderer + ItemRenderer.render, ItemDisplayContext.NONE)
+  at chest; poseStack space empirically: y=-1.12 -> ~2.1 m above feet (overhead), y=-0.17 -> chest+0.95 bias;
+  final translate(0, -0.13, 0.14) scale 0.13. Front-camera view used for verification (F5 twice); giant look
+  in shots is camera proximity, real size ~0.13 m. Deployed.
