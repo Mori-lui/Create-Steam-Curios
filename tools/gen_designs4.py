@@ -148,8 +148,8 @@ def p_brass():
 # ---------------- 3. bimetal spiral thermostat v2 ----------------
 def draw_spiral(d, S, u, state, frame=0):
     cx = S / 2
-    cy = 8.8 * u
-    chain(d, cx, 2.6 * u, u)
+    cy = 8.2 * u
+    chain(d, cx, 2.3 * u, u, links=2)
     # case: outer rim + inner ring
     R = 5.8 * u
     d.ellipse([cx - R, cy - R, cx + R, cy + R], fill=(52, 42, 20), outline=P["outline"],

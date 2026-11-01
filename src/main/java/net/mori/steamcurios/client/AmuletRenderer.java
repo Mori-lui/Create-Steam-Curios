@@ -57,6 +57,22 @@ public class AmuletRenderer implements ICurioRenderer {
                 .setOverlay(OverlayTexture.NO_OVERLAY).setLight(light).setNormal(0F, 0F, 1F);
         poseStack.popPose();
 
+        // back of the chain: a shorter strap across the upper back, so the amulet
+        // is visible from behind too
+        poseStack.pushPose();
+        VertexConsumer vcBack = buffer.getBuffer(RenderType.entityCutoutNoCull(CHAIN_TEXTURE));
+        var poseBack = poseStack.last();
+        float bx0 = -0.17F, bx1 = 0.17F, byTop = -0.37F, byBot = -0.24F, bz = -0.135F;
+        vcBack.addVertex(poseBack, bx0, byTop, bz).setColor(255, 255, 255, 255).setUv(0F, 0F)
+                .setOverlay(OverlayTexture.NO_OVERLAY).setLight(light).setNormal(0F, 0F, -1F);
+        vcBack.addVertex(poseBack, bx1, byTop, bz).setColor(255, 255, 255, 255).setUv(1F, 0F)
+                .setOverlay(OverlayTexture.NO_OVERLAY).setLight(light).setNormal(0F, 0F, -1F);
+        vcBack.addVertex(poseBack, bx1, byBot, bz).setColor(255, 255, 255, 255).setUv(1F, 1F)
+                .setOverlay(OverlayTexture.NO_OVERLAY).setLight(light).setNormal(0F, 0F, -1F);
+        vcBack.addVertex(poseBack, bx0, byBot, bz).setColor(255, 255, 255, 255).setUv(0F, 1F)
+                .setOverlay(OverlayTexture.NO_OVERLAY).setLight(light).setNormal(0F, 0F, -1F);
+        poseStack.popPose();
+
         // pendant: the item icon itself
         poseStack.pushPose();
         poseStack.translate(0.0D, -0.10D, 0.16D);

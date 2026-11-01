@@ -38,8 +38,8 @@ def chain(d, cx, top_y, u, links=3):
 
 # ---------------- brass medallion: the blank ----------------
 def draw_medallion(d, S, u, frame=0):
-    cx, cy = S / 2, 9.4 * u
-    chain(d, cx, 4.6 * u, u)
+    cx, cy = S / 2, 8.5 * u
+    chain(d, cx, 4.0 * u, u, links=2)
     R = 5.6 * u
     disc(d, cx, cy, R, P["outline"])
     disc(d, cx, cy, R - 0.4 * u, P["brass"])
@@ -67,7 +67,7 @@ def draw_medallion(d, S, u, frame=0):
 
 # ---------------- thermostat core: spiral heart in a drum ----------------
 def draw_core(d, S, u, frame=0):
-    cx, cy = S / 2, 8.8 * u
+    cx, cy = S / 2, 8.2 * u
     # side terminals
     for dx in (-4.2, 4.2):
         d.rounded_rectangle([cx + dx * u - 0.6 * u, cy - 1.0 * u, cx + dx * u + 0.6 * u, cy + 1.0 * u],
