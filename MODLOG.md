@@ -137,3 +137,13 @@ steam CLOUD particles while burning; fuel shown as item durability-style bar (ge
 - Body chain added: flat quad (entityCutoutNoCull, textures/entity/chain.png 32x32 V of links) across the
   chest behind the pendant; pendant = item model at translate(0,-0.10,0.16) scale 0.11. Verified live:
   V top at the neck, bottom meets the pendant (giant look in front-view shots = camera proximity).
+
+## Final art applied (v0.2.1)
+- User-approved designs: ring brooch (charm), bimetal spiral thermostat v2 (auto), coil capacitor v2 (iso),
+  medallion/core/incomplete support items — all 64px, generators tools/gen_designs*.py, galleries tools/gallery4-8.
+- States via CustomModelData overrides (steam/dry) for charm+auto; iso static; chain.png on the body.
+- Removed dead AmuletModel + entity/amulet.png (item-model render replaced the mesh).
+- Addon v0.1.1 content: 64px animated strips (10 frames) for steam states of all 3 amulets + iso idle pulse;
+  removed stale 16px base strips that would have overridden new static textures. Load-order override still
+  to be confirmed live in the pack.
+- 9/9 gametests; both jars deployed to the pack.

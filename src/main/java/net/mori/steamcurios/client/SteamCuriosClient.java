@@ -1,12 +1,10 @@
 package net.mori.steamcurios.client;
 
-import net.mori.steamcurios.client.AmuletModel;
 import net.mori.steamcurios.SteamCuriosMod;
 import net.neoforged.api.distmarker.Dist;
 import net.neoforged.bus.api.SubscribeEvent;
 import net.neoforged.fml.common.EventBusSubscriber;
 import net.neoforged.fml.event.lifecycle.FMLClientSetupEvent;
-import net.neoforged.neoforge.client.event.EntityRenderersEvent;
 
 /**
  * Client mod-bus subscriber. References to Curios go through CuriosCompatClient,
@@ -20,11 +18,6 @@ public final class SteamCuriosClient {
 
     /** No-op so the common side can force class loading order; kept for clarity. */
     public static void touch() {
-    }
-
-    @SubscribeEvent
-    public static void onRegisterLayers(EntityRenderersEvent.RegisterLayerDefinitions event) {
-        event.registerLayerDefinition(AmuletModel.LAYER, AmuletModel::createLayer);
     }
 
     @SubscribeEvent
