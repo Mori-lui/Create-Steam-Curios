@@ -183,10 +183,8 @@ public final class SteamLogic {
         int min = SteamCuriosConfig.CHUFF_MIN_INTERVAL.get();
         int max = Math.max(min + 1, SteamCuriosConfig.CHUFF_MAX_INTERVAL.get());
         if (ThreadLocalRandom.current().nextInt((max - min) * 20) < 20) {
-            SoundEvent chuff = BuiltInRegistries.SOUND_EVENT
-                    .get(ResourceLocation.fromNamespaceAndPath(SteamCuriosMod.MOD_ID, "chuff"));
-            level.playSound(null, entity.blockPosition(), chuff, SoundSource.PLAYERS,
-                    0.5F, 0.9F + ThreadLocalRandom.current().nextFloat() * 0.2F);
+            level.playSound(null, entity.blockPosition(), ModComponents.CHUFF.get(),
+                    SoundSource.PLAYERS, 0.5F, 0.9F + ThreadLocalRandom.current().nextFloat() * 0.2F);
         }
     }
 

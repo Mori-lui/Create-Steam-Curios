@@ -147,3 +147,8 @@ steam CLOUD particles while burning; fuel shown as item durability-style bar (ge
   removed stale 16px base strips that would have overridden new static textures. Load-order override still
   to be confirmed live in the pack.
 - 9/9 gametests; both jars deployed to the pack.
+- **CRASH fixed (user report: game crashed in pack):** NPE in ServerLevel.playSeededSound from
+  SteamLogic.chuff — `steamcurios:chuff` SoundEvent was never REGISTERED (sounds.json only maps audio
+  files; in 1.21.1 the SoundEvent object must be registered via DeferredRegister). Latent bug: never fired
+  in dev (amulet unfuelled there); fired on the integrated server the moment the user refuelled.
+  Fix: ModComponents.SOUNDS DeferredRegister + ModComponents.CHUFF holder; chuff() uses it directly.
