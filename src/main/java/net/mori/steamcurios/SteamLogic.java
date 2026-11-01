@@ -183,8 +183,9 @@ public final class SteamLogic {
         int min = SteamCuriosConfig.CHUFF_MIN_INTERVAL.get();
         int max = Math.max(min + 1, SteamCuriosConfig.CHUFF_MAX_INTERVAL.get());
         if (ThreadLocalRandom.current().nextInt((max - min) * 20) < 20) {
-            level.playSound(null, entity.blockPosition(), ModComponents.CHUFF.get(),
-                    SoundSource.PLAYERS, 0.5F, 0.9F + ThreadLocalRandom.current().nextFloat() * 0.2F);
+            // vanilla fire-extinguish "fsssh" pitched down reads as a steam chuff
+            level.playSound(null, entity.blockPosition(), net.minecraft.sounds.SoundEvents.FIRE_EXTINGUISH,
+                    SoundSource.PLAYERS, 0.7F, 0.55F + ThreadLocalRandom.current().nextFloat() * 0.2F);
         }
     }
 

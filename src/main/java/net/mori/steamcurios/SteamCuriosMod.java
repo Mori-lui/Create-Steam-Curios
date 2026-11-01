@@ -29,6 +29,7 @@ public class SteamCuriosMod {
         ModItems.ITEMS.register(modEventBus);
         ModItems.TABS.register(modEventBus);
         ModComponents.DATA_COMPONENTS.register(modEventBus);
+        ModComponents.SOUNDS.register(modEventBus);
 
         NeoForge.EVENT_BUS.register(ProtectionEvents.class);
         if (COLD_SWEAT_LOADED) {

@@ -152,3 +152,6 @@ steam CLOUD particles while burning; fuel shown as item durability-style bar (ge
   files; in 1.21.1 the SoundEvent object must be registered via DeferredRegister). Latent bug: never fired
   in dev (amulet unfuelled there); fired on the integrated server the moment the user refuelled.
   Fix: ModComponents.SOUNDS DeferredRegister + ModComponents.CHUFF holder; chuff() uses it directly.
+- Crash round 3 fix per user request: chuff switched to VANILLA SoundEvents.FIRE_EXTINGUISH (lava-into-water
+  fsssh, pitched 0.55-0.75) - zero registration dependency, zero crash risk. The custom chuff SoundEvent
+  registration stays (now correctly on the bus) for future use.
