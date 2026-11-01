@@ -145,50 +145,73 @@ def p_brass():
     return P["brass"]
 
 
-# ---------------- 3. bimetal spiral thermostat ----------------
+# ---------------- 3. bimetal spiral thermostat v2 ----------------
 def draw_spiral(d, S, u, state, frame=0):
     cx = S / 2
     cy = 8.8 * u
     chain(d, cx, 2.6 * u, u)
-    # open double-ring case
-    R = 5.6 * u
-    d.ellipse([cx - R, cy - R, cx + R, cy + R], outline=P["brass_lo"], width=max(3, int(u * 0.5)))
-    d.ellipse([cx - R + 0.8 * u, cy - R + 0.8 * u, cx + R - 0.8 * u, cy + R - 0.8 * u],
-              outline=P["brass"], width=max(2, int(u * 0.35)))
-    # bimetal spiral winding from center
+    # case: outer rim + inner ring
+    R = 5.8 * u
+    d.ellipse([cx - R, cy - R, cx + R, cy + R], fill=(52, 42, 20), outline=P["outline"],
+              width=max(2, int(u * 0.4)))
+    d.ellipse([cx - R + 0.5 * u, cy - R + 0.5 * u, cx + R - 0.5 * u, cy + R - 0.5 * u],
+              outline=P["brass_lo"], width=max(2, int(u * 0.4)))
+    # temperature scale ticks inside the rim (red at the cold end)
+    for i in range(12):
+        a = math.pi * 0.75 + i / 11 * math.pi * 1.5
+        col = (196, 60, 44) if i < 3 else P["brass_hi"]
+        x1 = cx + (R - 0.9 * u) * math.cos(a)
+        y1 = cy + (R - 0.9 * u) * math.sin(a)
+        x2 = cx + (R - 1.6 * u) * math.cos(a)
+        y2 = cy + (R - 1.6 * u) * math.sin(a)
+        d.line([x1, y1, x2, y2], fill=col, width=max(1, int(u * 0.22)))
+    # rim bolts
+    for a in (0.785, 2.36, 3.93, 5.5):
+        bx, by = cx + (R - 0.35 * u) * math.cos(a), cy + (R - 0.35 * u) * math.sin(a)
+        r = u * 0.34
+        d.ellipse([bx - r, by - r, bx + r, by + r], fill=P["steel_hi"], outline=P["outline"])
+    # bimetal spiral winding from center; pointer on the outer end sweeps the scale
     hot = state == "steam"
-    rot = (frame * 0.12) if hot else 0.0
-    col = p_copper_hot() if hot else (P["copper"] if state != "dry" else (96, 84, 72))
-    steps = 60
+    rot = (frame * 0.14) if hot else 0.0
+    sweep = (0.55 if hot else 0.0) + 0.06 * math.sin(frame * 1.5) * (1 if hot else 0)
+    col = P["ember"] if hot else (P["copper"] if state != "dry" else (96, 84, 72))
+    steps = 64
     pts = []
     for i in range(steps + 1):
         t = i / steps
-        theta = rot + t * 2.4 * 2 * math.pi
-        rr = (0.5 + 3.9 * t) * u
+        theta = rot + t * 2.3 * 2 * math.pi
+        rr = (0.5 + 3.3 * t) * u
         pts.append((cx + rr * math.cos(theta), cy + rr * math.sin(theta)))
-    d.line(pts, fill=col, width=max(2, int(u * 0.42)))
-    # center ember core
+    d.line(pts, fill=col, width=max(2, int(u * 0.45)))
+    # pointer riding the scale
+    pa = math.pi * 0.75 + (0.15 + sweep) * math.pi * 1.5
+    px, py = cx + (R - 2.0 * u) * math.cos(pa), cy + (R - 2.0 * u) * math.sin(pa)
+    tip_x, tip_y = cx + (R - 1.0 * u) * math.cos(pa), cy + (R - 1.0 * u) * math.sin(pa)
+    d.line([px, py, tip_x, tip_y], fill=(240, 236, 220), width=max(1, int(u * 0.24)))
+    d.ellipse([px - 0.3 * u, py - 0.3 * u, px + 0.3 * u, py + 0.3 * u], fill=(240, 236, 220))
+    # center ember core with halo
     if state != "dry":
-        fl = int(180 + 60 * math.sin(frame))
-        disc(d, cx, cy, 0.9 * u, (*P["ember_hi"], fl), steps=10)
+        fl = int(150 + 70 * math.sin(frame))
+        d.ellipse([cx - 1.9 * u, cy - 1.9 * u, cx + 1.9 * u, cy + 1.9 * u], fill=(*P["ember"], fl))
+        disc(d, cx, cy, 1.0 * u, (*P["ember_hi"], 235), steps=10)
         d.point((cx - 0.25 * u, cy - 0.25 * u), fill=(255, 255, 255))
     else:
-        disc(d, cx, cy, 0.9 * u, (52, 46, 40), steps=10)
-    # outer end connects to a small water drop valve at the bottom-right
-    d.ellipse([cx + 3.3 * u, cy + 3.3 * u, cx + 4.9 * u, cy + 4.9 * u], fill=p_water_drop(state),
-              outline=P["outline"])
+        disc(d, cx, cy, 1.0 * u, (52, 46, 40), steps=10)
+    # water window in the rim (bottom-right)
+    wx, wy = cx + 3.2 * u, cy + 3.2 * u
+    r_w = 0.95 * u
+    d.ellipse([wx - r_w, wy - r_w, wx + r_w, wy + r_w], fill=p_water_fill(state), outline=P["outline"])
+    if state == "steam":
+        d.rectangle([wx - r_w * 0.7, wy + r_w * 0.1, wx + r_w * 0.7, wy + r_w * 0.75], fill=P["water"])
+        d.point((wx - 0.2 * u, wy - r_w * 0.3), fill=P["water_hi"])
     if state == "steam":
         r = u * (0.28 + 0.15 * (frame % 3))
         d.ellipse([cx - 0.4 * u, 2.0 * u - (frame % 3) * 0.5 * u - r, cx + 0.4 * u,
                    2.0 * u - (frame % 3) * 0.5 * u + r], fill=(240, 247, 252, 226))
 
 
-def p_copper_hot():
-    return P["ember"]
-
-
-def p_water_drop(state):
-    return P["water"] if state == "steam" else (P["glass"] if state == "idle" else (46, 40, 36))
+def p_water_fill(state):
+    return (52, 120, 196, 160) if state == "steam" else ((198, 228, 246, 90) if state == "idle" else (46, 40, 36))
 
 
 def disc(d, cx, cy, r, fill, steps=14):
