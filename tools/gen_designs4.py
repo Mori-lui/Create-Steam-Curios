@@ -149,9 +149,9 @@ def p_brass():
 def draw_spiral(d, S, u, state, frame=0):
     cx = S / 2
     cy = 8.2 * u
-    chain(d, cx, 2.3 * u, u, links=2)
+    chain(d, cx, 1.4 * u, u, links=2)
     # case: outer rim + inner ring
-    R = 5.8 * u
+    R = 7.4 * u
     d.ellipse([cx - R, cy - R, cx + R, cy + R], fill=(52, 42, 20), outline=P["outline"],
               width=max(2, int(u * 0.4)))
     d.ellipse([cx - R + 0.5 * u, cy - R + 0.5 * u, cx + R - 0.5 * u, cy + R - 0.5 * u],
@@ -180,7 +180,7 @@ def draw_spiral(d, S, u, state, frame=0):
     for i in range(steps + 1):
         t = i / steps
         theta = rot + t * 2.3 * 2 * math.pi
-        rr = (0.5 + 3.3 * t) * u
+        rr = (0.5 + 4.4 * t) * u
         pts.append((cx + rr * math.cos(theta), cy + rr * math.sin(theta)))
     d.line(pts, fill=col, width=max(2, int(u * 0.45)))
     # pointer riding the scale
@@ -192,14 +192,14 @@ def draw_spiral(d, S, u, state, frame=0):
     # center ember core with halo
     if state != "dry":
         fl = int(150 + 70 * math.sin(frame))
-        d.ellipse([cx - 1.9 * u, cy - 1.9 * u, cx + 1.9 * u, cy + 1.9 * u], fill=(*P["ember"], fl))
-        disc(d, cx, cy, 1.0 * u, (*P["ember_hi"], 235), steps=10)
+        d.ellipse([cx - 2.4 * u, cy - 2.4 * u, cx + 2.4 * u, cy + 2.4 * u], fill=(*P["ember"], fl))
+        disc(d, cx, cy, 1.25 * u, (*P["ember_hi"], 235), steps=10)
         d.point((cx - 0.25 * u, cy - 0.25 * u), fill=(255, 255, 255))
     else:
         disc(d, cx, cy, 1.0 * u, (52, 46, 40), steps=10)
     # water window in the rim (bottom-right)
-    wx, wy = cx + 3.2 * u, cy + 3.2 * u
-    r_w = 0.95 * u
+    wx, wy = cx + 4.2 * u, cy + 4.2 * u
+    r_w = 1.15 * u
     d.ellipse([wx - r_w, wy - r_w, wx + r_w, wy + r_w], fill=p_water_fill(state), outline=P["outline"])
     if state == "steam":
         d.rectangle([wx - r_w * 0.7, wy + r_w * 0.1, wx + r_w * 0.7, wy + r_w * 0.75], fill=P["water"])

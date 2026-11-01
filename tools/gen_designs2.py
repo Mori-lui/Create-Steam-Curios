@@ -103,24 +103,24 @@ def draw_mixer(d, S, u, state, frame=0):
 def draw_coil2(d, S, u, state, frame=0):
     cx = S / 2
     p = P
-    chain(d, cx, 1.7 * u, u, p, fine=True, links=3)
+    chain(d, cx, 0.9 * u, u, p, fine=True, links=2)
     # radiator fins behind the tube (top and bottom)
-    for (fy0, fy1) in ((2.6 * u, 4.0 * u), (12.6 * u, 14.0 * u)):
-        for fx in (-2.6, -1.3, 0, 1.3, 2.6):
+    for (fy0, fy1) in ((1.9 * u, 3.4 * u), (13.3 * u, 14.8 * u)):
+        for fx in (-3.4, -1.7, 0, 1.7, 3.4):
             d.rectangle([cx + fx * u - 0.2 * u, fy0, cx + fx * u + 0.2 * u, fy1],
                         fill=p["steel_lo"], outline=p["outline"])
     # hex caps
-    for cy in (4.4 * u, 12.4 * u):
-        pts = [(cx + 3.3 * u * math.cos(math.pi / 6 + i / 6 * 2 * math.pi),
+    for cy in (3.9 * u, 13.0 * u):
+        pts = [(cx + 4.3 * u * math.cos(math.pi / 6 + i / 6 * 2 * math.pi),
                 cy + 1.4 * u * math.sin(math.pi / 6 + i / 6 * 2 * math.pi)) for i in range(6)]
         d.polygon(pts, fill=p["brass"], outline=p["outline"])
         d.point((cx - 1.0 * u, cy - 0.3 * u), fill=p["brass_hi"])
     # glass tube
-    tx0, tx1 = cx - 1.8 * u, cx + 1.8 * u
-    d.rounded_rectangle([tx0, 4.8 * u, tx1, 12.0 * u], radius=u * 0.8,
+    tx0, tx1 = cx - 2.5 * u, cx + 2.5 * u
+    d.rounded_rectangle([tx0, 3.8 * u, tx1, 12.8 * u], radius=u * 0.8,
                         fill=p["glass"], outline=p["outline"])
     # crystal: big faceted diamond with halo
-    ky = 8.4 * u
+    ky = 8.3 * u
     if state == "dry":
         d.polygon([(cx, ky - 2.0 * u), (cx + 1.5 * u, ky), (cx, ky + 2.0 * u), (cx - 1.5 * u, ky)],
                   fill=(64, 90, 110), outline=p["outline"])
@@ -128,20 +128,20 @@ def draw_coil2(d, S, u, state, frame=0):
         pulse = int(120 + 60 * math.sin(frame * 1.1))
         d.ellipse([cx - 2.3 * u, ky - 2.6 * u, cx + 2.3 * u, ky + 2.6 * u],
                   fill=(*p["crystal"], pulse))
-        d.polygon([(cx, ky - 2.1 * u), (cx + 1.6 * u, ky), (cx, ky + 2.1 * u), (cx - 1.6 * u, ky)],
+        d.polygon([(cx, ky - 2.7 * u), (cx + 2.1 * u, ky), (cx, ky + 2.7 * u), (cx - 2.1 * u, ky)],
                   fill=p["crystal"], outline=p["outline"])
-        d.polygon([(cx, ky - 1.0 * u), (cx + 0.75 * u, ky), (cx, ky + 1.0 * u), (cx - 0.75 * u, ky)],
+        d.polygon([(cx, ky - 1.3 * u), (cx + 1.0 * u, ky), (cx, ky + 1.3 * u), (cx - 1.0 * u, ky)],
                   fill=p["crystal_hi"])
         d.point((cx - 0.35 * u, ky - 0.7 * u), fill=(255, 255, 255))
     # wrap rings around the tube (3 turns)
-    for yy in (5.8 * u, 8.4 * u, 11.0 * u):
-        d.rounded_rectangle([cx - 2.4 * u, yy - 0.45 * u, cx + 2.4 * u, yy + 0.45 * u],
+    for yy in (5.2 * u, 8.3 * u, 11.4 * u):
+        d.rounded_rectangle([cx - 3.2 * u, yy - 0.5 * u, cx + 3.2 * u, yy + 0.5 * u],
                             radius=u * 0.2, fill=p["copper"], outline=p["outline"])
         d.rectangle([cx - 2.4 * u, yy - 0.45 * u, cx + 2.4 * u, yy - 0.1 * u], fill=p["copper_hi"])
     # bubbles rising inside the glass when steaming
     if state == "steam":
         for k in range(3):
-            bx = cx + (k - 1) * 0.55 * u
+            bx = cx + (k - 1) * 0.75 * u
             by = 11.0 * u - ((frame * 0.8 + k * 2.4) % 6) * u
             r = u * 0.16
             d.ellipse([bx - r, by - r, bx + r, by + r], outline=p["water_hi"], width=1)

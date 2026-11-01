@@ -38,42 +38,42 @@ def chain(d, cx, top_y, u, links=3):
 
 # ---------------- brass medallion: the blank ----------------
 def draw_medallion(d, S, u, frame=0):
-    cx, cy = S / 2, 8.5 * u
-    chain(d, cx, 4.0 * u, u, links=2)
-    R = 5.6 * u
+    cx, cy = S / 2, 8.0 * u
+    chain(d, cx, 2.6 * u, u, links=2)
+    R = 7.0 * u
     disc(d, cx, cy, R, P["outline"])
     disc(d, cx, cy, R - 0.4 * u, P["brass"])
     # lathe rings
-    ring(d, cx, cy, R - 1.3 * u, P["brass_lo"], max(1, int(u * 0.22)))
-    ring(d, cx, cy, R - 2.1 * u, P["brass_hi"], max(1, int(u * 0.22)))
+    ring(d, cx, cy, R - 1.6 * u, P["brass_lo"], max(1, int(u * 0.22)))
+    ring(d, cx, cy, R - 2.6 * u, P["brass_hi"], max(1, int(u * 0.22)))
     # embossed cog emblem in the center (blank stamp)
     n = 8
     pts = []
     for i in range(n * 2):
         a = i / (n * 2) * 2 * math.pi + 0.2
-        rr = (1.9 if i % 2 == 0 else 1.4) * u
+        rr = (2.4 if i % 2 == 0 else 1.75) * u
         pts.append((cx + rr * math.cos(a), cy + rr * math.sin(a)))
     d.polygon(pts, fill=P["brass_lo"])
-    d.ellipse([cx - 0.6 * u, cy - 0.6 * u, cx + 0.6 * u, cy + 0.6 * u], fill=P["brass_hi"],
+    d.ellipse([cx - 0.75 * u, cy - 0.75 * u, cx + 0.75 * u, cy + 0.75 * u], fill=P["brass_hi"],
               outline=P["outline"])
     # highlight crescent + 4 rivets
     d.arc([cx - R + 0.8 * u, cy - R + 0.8 * u, cx + R - 0.8 * u, cy + R - 0.8 * u], 200, 250,
           fill=(255, 240, 200, 130), width=max(1, int(u * 0.25)))
     for a in (0.785, 2.36, 3.93, 5.5):
-        bx, by = cx + (R - 1.0 * u) * math.cos(a), cy + (R - 1.0 * u) * math.sin(a)
+        bx, by = cx + (R - 1.2 * u) * math.cos(a), cy + (R - 1.2 * u) * math.sin(a)
         r = u * 0.3
         d.ellipse([bx - r, by - r, bx + r, by + r], fill=P["brass_lo"], outline=P["outline"])
 
 
 # ---------------- thermostat core: spiral heart in a drum ----------------
 def draw_core(d, S, u, frame=0):
-    cx, cy = S / 2, 8.2 * u
+    cx, cy = S / 2, 8.0 * u
     # side terminals
-    for dx in (-4.2, 4.2):
-        d.rounded_rectangle([cx + dx * u - 0.6 * u, cy - 1.0 * u, cx + dx * u + 0.6 * u, cy + 1.0 * u],
+    for dx in (-5.8, 5.8):
+        d.rounded_rectangle([cx + dx * u - 0.7 * u, cy - 1.1 * u, cx + dx * u + 0.7 * u, cy + 1.1 * u],
                             radius=u * 0.2, fill=P["brass_lo"], outline=P["outline"])
     # drum body
-    R = 4.6 * u
+    R = 6.2 * u
     d.ellipse([cx - R, cy - R, cx + R, cy + R], fill=P["brass"], outline=P["outline"])
     d.ellipse([cx - R + 0.5 * u, cy - R + 0.5 * u, cx + R - 0.5 * u, cy + R - 0.5 * u],
               fill=P["brass_lo"], outline=P["outline"])
@@ -92,7 +92,7 @@ def draw_core(d, S, u, frame=0):
     disc(d, cx, cy, 0.65 * u, (*P["ember_hi"], fl), steps=10)
     # bolts around the drum
     for a in (0.785, 2.36, 3.93, 5.5):
-        bx, by = cx + (R - 0.7 * u) * math.cos(a), cy + (R - 0.7 * u) * math.sin(a)
+        bx, by = cx + (R - 0.9 * u) * math.cos(a), cy + (R - 0.9 * u) * math.sin(a)
         r = u * 0.3
         d.ellipse([bx - r, by - r, bx + r, by + r], fill=P["steel_hi"], outline=P["outline"])
     # glow when animated
@@ -104,9 +104,9 @@ def draw_core(d, S, u, frame=0):
 # ---------------- incomplete brooch: half-assembled pipe ring ----------------
 def draw_incomplete(d, S, u, frame=0):
     cx = S / 2
-    chain(d, cx, 3.1 * u, u)
-    R = 5.1 * u
-    wt = 1.5 * u
+    chain(d, cx, 1.7 * u, u, links=2)
+    R = 6.9 * u
+    wt = 1.8 * u
     # pipe ring, but dim / unpolished
     d.ellipse([cx - R, S / 2 - R, cx + R, S / 2 + R], outline=P["outline"], width=max(4, int(wt + 1.2 * u)))
     d.ellipse([cx - R, S / 2 - R, cx + R, S / 2 + R], outline=(150, 116, 40), width=max(3, int(wt)))
@@ -122,14 +122,14 @@ def draw_incomplete(d, S, u, frame=0):
             r = u * 0.42
             d.ellipse([bx - r, by - r, bx + r, by + r], fill=(22, 18, 14), outline=P["outline"])
     # valve socket: empty center mount with screw holes, no valve
-    d.rounded_rectangle([cx - 1.5 * u, S / 2 - 1.5 * u, cx + 1.5 * u, S / 2 + 1.5 * u],
+    d.rounded_rectangle([cx - 1.9 * u, S / 2 - 1.9 * u, cx + 1.9 * u, S / 2 + 1.9 * u],
                         radius=u * 0.3, fill=(48, 40, 30), outline=P["outline"])
-    for (sx, sy) in ((-1.0, -1.0), (1.0, -1.0), (-1.0, 1.0), (1.0, 1.0)):
+    for (sx, sy) in ((-1.3, -1.3), (1.3, -1.3), (-1.3, 1.3), (1.3, 1.3)):
         r = u * 0.16
         d.ellipse([cx + sx * u - r, S / 2 + sy * u - r, cx + sx * u + r, S / 2 + sy * u + r],
                   fill=(20, 16, 12))
     # a loose bolt lying on the ring edge
-    d.ellipse([cx + 2.2 * u, S / 2 - 4.6 * u, cx + 3.1 * u, S / 2 - 3.7 * u],
+    d.ellipse([cx + 2.9 * u, S / 2 - 6.0 * u, cx + 4.0 * u, S / 2 - 4.9 * u],
               fill=P["steel_hi"], outline=P["outline"])
 
 

@@ -46,9 +46,9 @@ def chain(d, cx, top_y, u, p, links=3, lw=None, fine=False):
 def draw_ring(d, S, u, state, frame=0):
     p = P
     cx = S / 2
-    chain(d, cx, 3.1 * u, u, p)
-    R = 5.1 * u
-    wt = 1.5 * u
+    chain(d, cx, 1.9 * u, u, p, links=2)
+    R = 6.9 * u
+    wt = 2.0 * u
     d.ellipse([cx - R, S / 2 - R, cx + R, S / 2 + R], outline=p["outline"], width=max(4, int(wt + 1.2 * u)))
     d.ellipse([cx - R, S / 2 - R, cx + R, S / 2 + R], outline=p["brass"], width=max(3, int(wt)))
     r_in = R - wt
@@ -70,7 +70,7 @@ def draw_ring(d, S, u, state, frame=0):
         d.point((bx - r * 0.4, by - r * 0.4), fill=p["outline"])
     # center valve
     va = 0.0 if state != "steam" else frame * 0.9
-    gear(d, cx, S / 2, 2.0 * u, 4, p["brass_hi"], ang=va, hole=(52, 120, 196, 255))
+    gear(d, cx, S / 2, 2.6 * u, 4, p["brass_hi"], ang=va, hole=(52, 120, 196, 255))
     d.ellipse([cx - 0.38 * u, S / 2 - 0.38 * u, cx + 0.38 * u, S / 2 + 0.38 * u],
               fill=p["brass_lo"], outline=p["outline"])
     if state == "steam":
